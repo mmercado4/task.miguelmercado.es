@@ -1,11 +1,15 @@
 <template>
-  <h1>Task</h1>
+  <Header msg="Tus muertos" />
 </template>
 
 <script>
+import Header from "./components/Header.vue";
+
 export default {
   name: "App",
-  components: {},
+  components: {
+    Header,
+  },
 };
 </script>
 
