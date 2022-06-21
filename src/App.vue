@@ -1,5 +1,5 @@
 <template>
-  <Header msg="Task" />
+  <Header msg="Task Manager" />
   <Main />
   <Footer />
 </template>
@@ -28,5 +28,11 @@ body {
 
 #app {
   font-family: consolas;
+}
+
+h1,
+h2,
+h3 {
+  margin: 0;
 }
 </style>

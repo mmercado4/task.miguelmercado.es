@@ -1,10 +1,18 @@
 <template>
-  <main>Task manager</main>
+  <main>
+    <h2>Projects</h2>
+    <Projects />
+  </main>
 </template>
 
 <script>
+import Projects from "./Projects";
+
 export default {
   name: "MainVue",
+  components: {
+    Projects,
+  },
 };
 </script>
 
