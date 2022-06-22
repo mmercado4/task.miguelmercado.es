@@ -1,20 +1,20 @@
 <template>
-  <Header msg="Task Manager" />
-  <Main />
-  <Footer />
+  <HeaderVue msg="Task Manager" />
+  <ManagerVue />
+  <FooterVue />
 </template>
 
 <script>
-import Header from "./components/Header.vue";
-import Footer from "./components/Footer.vue";
-import Main from "./components/Main";
+import HeaderVue from "./components/Header.vue";
+import FooterVue from "./components/Footer.vue";
+import ManagerVue from "./components/Manager";
 
 export default {
   name: "App",
   components: {
-    Header,
-    Footer,
-    Main,
+    HeaderVue,
+    FooterVue,
+    ManagerVue,
   },
 };
 </script>
