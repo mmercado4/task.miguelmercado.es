@@ -4,13 +4,13 @@
     <p>{{ task.description }}</p>
     <input
       type="checkbox"
-      name=""
+      v-bind:id="task.id"
       v-bind:checked="task.done"
       @change="handleCheck"
     />
     <p v-if="task.done">TRUE</p>
     <p v-else>FALSE</p>
-    <p>{{ id }}</p>
+    <p>tarea {{ task.id }}</p>
   </div>
 </template>
 
@@ -19,12 +19,14 @@ export default {
   name: "TaskVue",
   props: {
     task: Object,
-    doTask: Function,
-    id: String,
   },
   methods: {
     handleCheck(e) {
-      this.doTask(this.id, this.task.name, e.target.checked);
+      let { id, checked } = e.target;
+      this.$emit("do-task", {
+        id: id,
+        checked: checked,
+      });
     },
   },
 };

@@ -2,11 +2,10 @@
   <div class="project">
     <p>{{ project.name }}</p>
     <TaskVue
-      v-for="(task, index) in project.tasks"
+      v-for="(task, index) in tasks"
       :key="index"
-      v-bind:task="task"
-      v-bind:id="project.id"
-      v-bind:doTask="doTask"
+      :task="task"
+      @do-task="doTask"
     />
   </div>
 </template>
@@ -18,14 +17,43 @@ export default {
   name: "ProjectVue",
   props: {
     project: Object,
-    doTask: Function,
   },
   components: { TaskVue },
+  data() {
+    return {
+      tasks: [
+        {
+          id: 3331,
+          name: "Crear estructura",
+          done: false,
+          description: "Crear proyecto en gitlab y subir a producción",
+        },
+        {
+          id: 3332,
+          name: "Añadir campos y secciones",
+          done: true,
+          description: "Añadir los campos de datos personales",
+        },
+      ],
+    };
+  },
+  methods: {
+    doTask({ id, checked }) {
+      this.tasks = this.tasks.map((task) => {
+        if (task.id === parseInt(id)) {
+          task.done = checked;
+        }
+        return task;
+      });
+    },
+  },
 };
+
+//buscar tareas en base de datos según se inicie
 </script>
 
 <style scoped>
 div.project {
-  background-color: greenyellow;
+  background-color: white;
 }
 </style>
