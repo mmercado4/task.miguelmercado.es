@@ -1,17 +1,17 @@
 <template>
   <main>
-    <h2>Projects</h2>
-    <ProjectsVue />
+    <h2>Listas</h2>
+    <ListsVue />
   </main>
 </template>
 
 <script>
-import ProjectsVue from "./Projects";
+import ListsVue from "./Lists";
 
 export default {
   name: "ManagerVue",
   components: {
-    ProjectsVue,
+    ListsVue,
   },
 };
 </script>

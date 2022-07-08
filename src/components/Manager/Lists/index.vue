@@ -1,30 +1,26 @@
 <template>
   <div class="project-container">
-    <ProjectVue
-      v-for="(project, index) in projects"
-      :key="index"
-      v-bind:project="project"
-    />
+    <ListVue v-for="(list, index) in lists" :key="index" v-bind:list="list" />
   </div>
 
-  <input v-on:keypress="handleKeyPress" type="text" v-model="newProject" />
+  <input v-on:keypress="handleKeyPress" type="text" v-model="newList" />
   <button v-on:click="handleClick">Añadir</button>
 </template>
 
 <script>
-import ProjectVue from "./Project.vue";
+import ListVue from "./List.vue";
 import { nanoid } from "nanoid";
 import { getAllLists } from "../../../assets/gateways";
 
 export default {
-  name: "ProjectsVue",
+  name: "ListsVue",
   components: {
-    ProjectVue,
+    ListVue,
   },
   data() {
     return {
-      projects: [],
-      newProject: "",
+      lists: [],
+      newList: "",
     };
   },
   async created() {

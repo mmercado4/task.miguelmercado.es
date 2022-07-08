@@ -1,6 +1,6 @@
 <template>
-  <div class="project">
-    <p>{{ project.name }}</p>
+  <div class="list">
+    <p>{{ list.name }}</p>
     <TaskVue
       v-for="(task, index) in tasks"
       :key="index"
@@ -14,9 +14,9 @@
 import TaskVue from "./Task.vue";
 
 export default {
-  name: "ProjectVue",
+  name: "ListVue",
   props: {
-    project: Object,
+    list: Object,
   },
   components: { TaskVue },
   data() {
@@ -53,7 +53,7 @@ export default {
 </script>
 
 <style scoped>
-div.project {
+div.list {
   background-color: white;
 }
 </style>
