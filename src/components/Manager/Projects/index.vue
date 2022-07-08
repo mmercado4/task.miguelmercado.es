@@ -14,6 +14,7 @@
 <script>
 import ProjectVue from "./Project.vue";
 import { nanoid } from "nanoid";
+import { getAllLists } from "../../../assets/gateways";
 
 export default {
   name: "ProjectsVue",
@@ -22,25 +23,13 @@ export default {
   },
   data() {
     return {
-      projects: [
-        {
-          id: "1",
-          name: "Adeslas",
-          stored: false,
-        },
-        {
-          id: "2",
-          name: "Sanitas",
-          stored: false,
-        },
-        {
-          id: "3",
-          name: "Repsol",
-          stored: false,
-        },
-      ],
+      projects: [],
       newProject: "",
     };
+  },
+  async created() {
+    let lists = await getAllLists();
+    console.log(lists);
   },
   methods: {
     handleClick() {
@@ -54,7 +43,7 @@ export default {
       console.log(obj);
       this.projects.push(obj);
       this.newProject = "";
-      //enviar a la base de datos
+      //TODO Send to the db
     },
     handleKeyPress(e) {
       if (e.key === "Enter") {
