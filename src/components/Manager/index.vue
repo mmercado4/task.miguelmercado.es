@@ -18,7 +18,7 @@ export default {
 
 <style scoped>
 main {
-  min-height: calc(100vh - 150px);
+  min-height: calc(100vh - 100px);
   background-color: whitesmoke;
 }
 </style>

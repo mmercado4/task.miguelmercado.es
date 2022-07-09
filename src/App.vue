@@ -1,5 +1,5 @@
 <template>
-  <HeaderVue msg="Task Manager" />
+  <HeaderVue />
   <ManagerVue />
   <FooterVue />
 </template>
@@ -20,14 +20,31 @@ export default {
 </script>
 
 <style>
+@import url("https://fonts.googleapis.com/css2?family=Shippori+Antique&display=swap");
+
+/*constants*/
+:root {
+  --primary-font: "Shippori Antique", sans-serif;
+  --primary-color: #39a2db;
+  --secondary-color: #073944;
+  --background-color: #eff4f7;
+  --white: #ffffff;
+}
+
+/*basic styles*/
 body {
   margin: 0;
   padding: 0;
-  background-color: #eaeaea;
+  background-color: var(--background-color);
+  box-sizing: border-box;
 }
 
 #app {
-  font-family: consolas;
+  font-family: var(--primary-font);
+}
+
+h1 {
+  font-size: 2.5em;
 }
 
 h1,
