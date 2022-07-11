@@ -8,11 +8,12 @@ export default {
   name: "HeaderVue",
 };
 </script>
+
 <style>
 header {
   width: 100%;
-  min-height: 50px;
   margin: 0;
+  background-color: var(--background-color);
 }
 
 header h1 {
@@ -20,6 +21,7 @@ header h1 {
   letter-spacing: 2px;
   transform: translateX(0);
   color: var(--secondary-color);
+  padding: 15px 30px;
 }
 
 @keyframes gather-letters-animation {
