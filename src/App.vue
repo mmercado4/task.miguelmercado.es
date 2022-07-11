@@ -5,8 +5,8 @@
 </template>
 
 <script>
-import HeaderVue from "./components/Header.vue";
-import FooterVue from "./components/Footer.vue";
+import HeaderVue from "./components/Templates/Header.vue";
+import FooterVue from "./components/Templates/Footer.vue";
 import ManagerVue from "./components/Manager";
 
 export default {
