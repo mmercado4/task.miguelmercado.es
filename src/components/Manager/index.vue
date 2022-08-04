@@ -1,14 +1,18 @@
 <template>
   <main>
     <div class="add-list-zone">
-      <input
-        type="text"
-        class="add-list-input"
-        :class="{ active: showForm }"
-        placeholder="Add new list"
-        v-model="newList"
-        @keypress="handleKeyPress"
-      />
+      <div class="add-list-input-container" :class="{ active: showForm }">
+        <input
+          type="text"
+          class="add-list-input"
+          placeholder="Add new list"
+          v-model="newList"
+          @keypress="handleKeyPress"
+        />
+        <IconBase width="25" height="25" @click="addList"
+          ><IconRightCaret
+        /></IconBase>
+      </div>
       <RoundButtonVue title="Add list" :action="handleClick" :active="showForm"
         ><IconBase width="25" height="25"><IconPlus /></IconBase>
       </RoundButtonVue>
@@ -23,6 +27,7 @@ import ListsVue from "./Lists";
 import RoundButtonVue from "../Templates/RoundButton.vue";
 import IconBase from "../Templates/IconBase.vue";
 import IconPlus from "../Icons/IconPlus.vue";
+import IconRightCaret from "../Icons/IconRightCaret.vue";
 import { saveNewList, getAllLists } from "../../assets/gateways";
 
 import { nanoid } from "nanoid";
@@ -34,6 +39,7 @@ export default {
     RoundButtonVue,
     IconBase,
     IconPlus,
+    IconRightCaret,
   },
   data() {
     return {
@@ -54,24 +60,24 @@ export default {
       this.showForm = newStatus;
     },
     handleKeyPress(e) {
-      if (e.code === "Enter") {
-        let obj = {
-          id: nanoid(),
-          name: this.newList,
-          stored: false,
-        };
-
-        saveNewList(obj)
-          .then((response) => {
-            if (response.success) {
-              this.handleClick();
-              let updatedLists = [...this.lists];
-              updatedLists.push(obj);
-              this.lists = updatedLists;
-            }
-          })
-          .catch((error) => console.error(error));
-      }
+      if (e.code === "Enter") this.addList();
+    },
+    addList() {
+      let list = {
+        id: nanoid(),
+        name: this.newList,
+        stored: false,
+      };
+      saveNewList(list)
+        .then((response) => {
+          if (response.success) {
+            this.handleClick();
+            let updatedLists = [...this.lists];
+            updatedLists.push(list);
+            this.lists = updatedLists;
+          }
+        })
+        .catch((error) => console.error(error));
     },
   },
 };
@@ -93,23 +99,44 @@ main {
   flex-direction: column;
   overflow-x: hidden;
   padding: 5px;
+  /* width: 100%; */
+}
+
+/* @media (min-width: 768px) {
+  .add-list-zone {
+    width: 30%;
+  }
+} */
+
+.add-list-input-container {
+  margin-bottom: 20px;
+  transform: translateX(150%);
+  transition: transform 0.5s ease;
+  position: relative;
+  /* width: 100%; */
 }
 
 .add-list-input {
-  margin-bottom: 20px;
   font-family: var(--primary-font);
-  padding: 10px;
+  padding: 10px 25px;
   border: none;
   border-bottom: 1px solid var(--secondary-color);
   background-color: transparent;
-  transform: translateX(300px);
-  transition: transform 0.5s ease;
   outline: none;
   font-size: 1.1em;
   text-align: end;
+  /* width: 100%; */
 }
 
-.add-list-input.active {
+.add-list-input-container > svg {
+  position: absolute;
+  right: -5px;
+  top: 10px;
+  color: var(--primary-color);
+  cursor: pointer;
+}
+
+.add-list-input-container.active {
   transform: translateX(0);
   transition: transform 0.5s ease;
 }
