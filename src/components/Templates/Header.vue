@@ -13,6 +13,7 @@ export default {
 header {
   width: 100%;
   margin: 0;
+  overflow: hidden;
   background-color: var(--background-color);
 }
 
