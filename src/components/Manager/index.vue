@@ -1,6 +1,5 @@
 <template>
   <main>
-    <h2>Listas</h2>
     <div class="add-list-zone">
       <input
         type="text"
@@ -8,6 +7,7 @@
         :class="{ active: showForm }"
         placeholder="Add new list"
         v-model="newList"
+        @keypress="handleKeyPress"
       />
       <RoundButtonVue title="Add list" :action="handleClick" :active="showForm"
         ><IconBase width="25" height="25"><IconPlus /></IconBase>
@@ -23,6 +23,9 @@ import ListsVue from "./Lists";
 import RoundButtonVue from "../Templates/RoundButton.vue";
 import IconBase from "../Templates/IconBase.vue";
 import IconPlus from "../Icons/IconPlus.vue";
+import { saveNewList } from "../../assets/gateways";
+
+import { nanoid } from "nanoid";
 
 export default {
   name: "ManagerVue",
@@ -43,6 +46,24 @@ export default {
       let newStatus = !this.showForm;
       if (!newStatus) setTimeout(() => (this.newList = ""), 500);
       this.showForm = newStatus;
+    },
+    handleKeyPress(e) {
+      if (e.code === "Enter") {
+        let obj = {
+          id: nanoid(),
+          name: this.newList,
+          stored: false,
+        };
+
+        saveNewList(obj)
+          .then((response) => {
+            if (response.success) {
+              console.log(response);
+              this.handleClick();
+            }
+          })
+          .catch((error) => console.error(error));
+      }
     },
   },
 };

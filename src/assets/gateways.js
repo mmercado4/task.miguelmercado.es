@@ -8,4 +8,15 @@ const getAllLists = async () => {
   return result;
 };
 
-export { getAllLists };
+const saveNewList = async (obj) => {
+  let opts = {
+    method: "POST",
+    headers: { "content-type": "application/json" },
+    body: JSON.stringify(obj),
+  };
+  let response = await fetch(`${API_URL}/task/lists`, opts);
+  let data = await response.json();
+  return data;
+};
+
+export { getAllLists, saveNewList };

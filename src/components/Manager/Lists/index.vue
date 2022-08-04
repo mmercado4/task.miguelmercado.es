@@ -2,9 +2,6 @@
   <div class="project-container">
     <ListVue v-for="(list, index) in lists" :key="index" v-bind:list="list" />
   </div>
-
-  <input v-on:keypress="handleKeyPress" type="text" v-model="newList" />
-  <button v-on:click="handleClick">Añadir</button>
 </template>
 
 <script>
