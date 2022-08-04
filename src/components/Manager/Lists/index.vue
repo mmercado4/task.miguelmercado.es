@@ -1,54 +1,45 @@
 <template>
-  <div class="project-container">
-    <ListVue v-for="(list, index) in lists" :key="index" v-bind:list="list" />
+  <div class="lists-container">
+    <ListVue
+      v-for="(list, index) in lists"
+      :key="index"
+      :list="list"
+      @select-list="selectList"
+      :selectedList="selectedList"
+    />
+    <p>Selected: {{ this.selectedList }}</p>
   </div>
 </template>
 
 <script>
 import ListVue from "./List.vue";
-import { nanoid } from "nanoid";
-import { getAllLists } from "../../../assets/gateways";
 
 export default {
   name: "ListsVue",
   components: {
     ListVue,
   },
+  props: {
+    lists: Array,
+  },
   data() {
     return {
-      lists: [],
-      newList: "",
+      selectedList: "",
     };
   },
-  async created() {
-    let lists = await getAllLists();
-    console.log(lists);
-  },
   methods: {
-    handleClick() {
-      console.log(this.newProject);
-      let obj = {
-        id: nanoid(),
-        name: this.newProject,
-        tasks: [],
-        stored: false,
-      };
-      console.log(obj);
-      this.projects.push(obj);
-      this.newProject = "";
-      //TODO Send to the db
-    },
-    handleKeyPress(e) {
-      if (e.key === "Enter") {
-        this.handleClick();
-      }
+    selectList(list) {
+      if (list === this.selectedList) this.selectedList = "";
+      else this.selectedList = list;
     },
   },
 };
 </script>
 
 <style scoped>
-div.project-container {
-  background-color: indianred;
+div.lists-container {
+  width: 80%;
+  display: block;
+  margin: 0 auto;
 }
 </style>

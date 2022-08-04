@@ -14,7 +14,7 @@
       </RoundButtonVue>
     </div>
 
-    <ListsVue />
+    <ListsVue :lists="lists" />
   </main>
 </template>
 
@@ -23,7 +23,7 @@ import ListsVue from "./Lists";
 import RoundButtonVue from "../Templates/RoundButton.vue";
 import IconBase from "../Templates/IconBase.vue";
 import IconPlus from "../Icons/IconPlus.vue";
-import { saveNewList } from "../../assets/gateways";
+import { saveNewList, getAllLists } from "../../assets/gateways";
 
 import { nanoid } from "nanoid";
 
@@ -39,7 +39,13 @@ export default {
     return {
       showForm: false,
       newList: "",
+      lists: [],
     };
+  },
+  async created() {
+    let listArray = await getAllLists();
+    this.lists = listArray;
+    console.log(listArray);
   },
   methods: {
     handleClick() {
@@ -58,8 +64,10 @@ export default {
         saveNewList(obj)
           .then((response) => {
             if (response.success) {
-              console.log(response);
               this.handleClick();
+              let updatedLists = [...this.lists];
+              updatedLists.push(obj);
+              this.lists = updatedLists;
             }
           })
           .catch((error) => console.error(error));
