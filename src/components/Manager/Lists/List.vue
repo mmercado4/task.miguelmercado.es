@@ -1,6 +1,8 @@
 <template>
   <div class="list" v-bind:class="{ active: isActive }">
-    <p @click="handleClick">{{ list.name }}</p>
+    <p @click="handleClick">
+      {{ list.name.length > 20 ? list.name.slice(0, 20) + "..." : list.name }}
+    </p>
     <!-- <TaskVue
       v-for="(task, index) in tasks"
       :key="index"
@@ -22,20 +24,20 @@ export default {
   // components: { TaskVue },
   data() {
     return {
-      tasks: [
-        {
-          id: 3331,
-          name: "Crear estructura",
-          done: false,
-          description: "Crear proyecto en gitlab y subir a producción",
-        },
-        {
-          id: 3332,
-          name: "Añadir campos y secciones",
-          done: true,
-          description: "Añadir los campos de datos personales",
-        },
-      ],
+      // tasks: [
+      //   {
+      //     id: 3331,
+      //     name: "Crear estructura",
+      //     done: false,
+      //     description: "Crear proyecto en gitlab y subir a producción",
+      //   },
+      //   {
+      //     id: 3332,
+      //     name: "Añadir campos y secciones",
+      //     done: true,
+      //     description: "Añadir los campos de datos personales",
+      //   },
+      // ],
     };
   },
   computed: {
@@ -63,8 +65,13 @@ export default {
 
 <style scoped>
 div.list {
-  background-color: white;
+  background-color: var(--primary-color);
+  color: white;
   cursor: pointer;
+  padding: 10px;
+  margin: 10px;
+  min-width: 120px;
+  border-radius: 3px;
 }
 
 div.list.active > p {

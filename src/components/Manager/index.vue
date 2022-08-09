@@ -5,7 +5,7 @@
         <input
           type="text"
           class="add-list-input"
-          placeholder="Add new list"
+          placeholder="Add new task list"
           v-model="newList"
           @keypress="handleKeyPress"
         />
