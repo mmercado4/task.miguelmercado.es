@@ -40,7 +40,7 @@ export default {
 div.lists-container {
   width: 90%;
   display: flex;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: center;
   margin: 0 auto;
   padding: 0 15px;
@@ -48,7 +48,7 @@ div.lists-container {
   flex-wrap: nowrap;
   height: 60vh;
   overflow-y: scroll;
-  overflow-x: hidden;
+  overflow-x: auto;
 }
 
 div.lists-container::-webkit-scrollbar {
@@ -72,9 +72,9 @@ div.lists-container:hover::-webkit-scrollbar-thumb {
 
 @media (min-width: 768px) {
   div.lists-container {
-    width: 70%;
     flex-direction: row;
     flex-wrap: wrap;
+    justify-content: center;
   }
 }
 </style>

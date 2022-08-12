@@ -1,6 +1,6 @@
 <template>
-  <div class="list" v-bind:class="{ active: isActive }">
-    <p @click="handleClick">
+  <div class="list" v-bind:class="{ active: isActive }" @click="handleClick">
+    <p>
       {{ list.name.length > 20 ? list.name.slice(0, 20) + "..." : list.name }}
     </p>
     <!-- <TaskVue
@@ -70,12 +70,19 @@ div.list {
   cursor: pointer;
   padding: 10px;
   margin: 10px;
-  min-width: 120px;
+  width: 80%;
   border-radius: 3px;
 }
 
 div.list.active > p {
   color: red;
   font-weight: bold;
+}
+
+@media (min-width: 768px) {
+  div.list {
+    width: auto;
+    min-width: 120px;
+  }
 }
 </style>
