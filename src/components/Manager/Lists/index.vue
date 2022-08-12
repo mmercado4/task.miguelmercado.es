@@ -5,6 +5,7 @@
       :key="index"
       :list="list"
       @select-list="selectList"
+      v-bind="$attrs"
       :selectedList="selectedList"
     />
   </div>
@@ -16,11 +17,12 @@ import ListVue from "./List.vue";
 
 export default {
   name: "ListsVue",
-  components: {
-    ListVue,
-  },
+  inheritAttrs: false, //TODO: APRENDER QUÈ HACE ESTO QUE PARECE QUE ES NECESARIO PARA EMITIR UN EVENTO DESDE EL NIETO
   props: {
     lists: Array,
+  },
+  components: {
+    ListVue,
   },
   data() {
     return {
@@ -40,15 +42,17 @@ export default {
 div.lists-container {
   width: 90%;
   display: flex;
-  justify-content: flex-start;
-  align-items: center;
+  justify-content: center;
+  align-items: flex-start;
   margin: 0 auto;
   padding: 0 15px;
   flex-direction: column;
   flex-wrap: nowrap;
   height: 60vh;
   overflow-y: scroll;
-  overflow-x: auto;
+  overflow-x: hidden;
+  flex-direction: row;
+  flex-wrap: wrap;
 }
 
 div.lists-container::-webkit-scrollbar {
@@ -68,13 +72,5 @@ div.lists-container:hover::-webkit-scrollbar-track {
 div.lists-container:hover::-webkit-scrollbar-thumb {
   background-color: var(--secondary-color);
   border-radius: 3px;
-}
-
-@media (min-width: 768px) {
-  div.lists-container {
-    flex-direction: row;
-    flex-wrap: wrap;
-    justify-content: center;
-  }
 }
 </style>

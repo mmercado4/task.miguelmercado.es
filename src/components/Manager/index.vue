@@ -18,7 +18,7 @@
       </RoundButtonVue>
     </div>
 
-    <ListsVue :lists="lists" />
+    <ListsVue :lists="lists" @remove-list="removeList" />
   </main>
 </template>
 
@@ -28,7 +28,7 @@ import RoundButtonVue from "../Templates/RoundButton.vue";
 import IconBase from "../Templates/IconBase.vue";
 import IconPlus from "../Icons/IconPlus.vue";
 import IconRightCaret from "../Icons/IconRightCaret.vue";
-import { saveNewList, getAllLists } from "../../assets/gateways";
+import { saveNewList, deleteList, getAllLists } from "../../assets/gateways";
 
 import { nanoid } from "nanoid";
 
@@ -78,6 +78,19 @@ export default {
           }
         })
         .catch((error) => console.error(error));
+    },
+    async removeList(id) {
+      try {
+        let result = await deleteList(id);
+        console.log("result", result);
+        if (result.success) {
+          let updatedList = this.lists.filter((list) => list.id !== id);
+          console.log(updatedList);
+          this.lists = updatedList;
+        }
+      } catch (error) {
+        console.error(error);
+      }
     },
   },
 };
