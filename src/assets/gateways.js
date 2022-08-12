@@ -1,6 +1,6 @@
 import { API_URL } from "./constants";
 
-//tasks
+//lists
 const getAllLists = async () => {
   let request = await fetch(`${API_URL}/task/lists`);
   let result = await request.json();
@@ -19,4 +19,15 @@ const saveNewList = async (obj) => {
   return data;
 };
 
-export { getAllLists, saveNewList };
+const deleteList = async (id) => {
+  let opts = {
+    method: "DELETE",
+    headers: { "content-type": "application/json" },
+  };
+  let response = await fetch(`${API_URL}/task/lists/${id}`, opts);
+  let data = await response.json();
+
+  return data;
+};
+
+export { getAllLists, saveNewList, deleteList };
