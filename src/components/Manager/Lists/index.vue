@@ -9,7 +9,6 @@
       :selectedList="selectedList"
     />
   </div>
-  <p>Selected: {{ this.selectedList }}</p>
 </template>
 
 <script>
@@ -48,9 +47,6 @@ div.lists-container {
   padding: 0 15px;
   flex-direction: column;
   flex-wrap: nowrap;
-  height: 60vh;
-  overflow-y: scroll;
-  overflow-x: hidden;
   flex-direction: row;
   flex-wrap: wrap;
 }

@@ -103,9 +103,9 @@ main {
 }
 
 .add-list-zone {
-  position: fixed;
+  position: absolute;
   right: 30px;
-  bottom: 60px;
+  top: -75px;
   display: flex;
   align-items: center;
   justify-content: center;

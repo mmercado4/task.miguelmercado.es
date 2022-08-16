@@ -52,4 +52,18 @@ h2,
 h3 {
   margin: 0;
 }
+
+/*Animations*/
+.appear {
+  animation: appear-animation 0.5s ease forwards !important;
+}
+
+@keyframes appear-animation {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
 </style>
