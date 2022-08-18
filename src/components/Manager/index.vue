@@ -18,7 +18,11 @@
       </RoundButtonVue>
     </div>
 
-    <ListsVue :lists="lists" @remove-list="removeList" />
+    <ListsVue
+      :lists="lists"
+      @remove-list="removeList"
+      @store-list="storeList"
+    />
   </main>
 </template>
 
@@ -28,7 +32,12 @@ import RoundButtonVue from "../Templates/RoundButton.vue";
 import IconBase from "../Templates/IconBase.vue";
 import IconPlus from "../Icons/IconPlus.vue";
 import IconRightCaret from "../Icons/IconRightCaret.vue";
-import { saveNewList, deleteList, getAllLists } from "../../assets/gateways";
+import {
+  saveNewList,
+  deleteList,
+  getAllLists,
+  updateList,
+} from "../../assets/gateways";
 
 import { nanoid } from "nanoid";
 
@@ -51,7 +60,6 @@ export default {
   async created() {
     let listArray = await getAllLists();
     this.lists = listArray;
-    console.log(listArray);
   },
   methods: {
     handleClick() {
@@ -62,30 +70,44 @@ export default {
     handleKeyPress(e) {
       if (e.code === "Enter") this.addList();
     },
-    addList() {
+    async addList() {
       let list = {
         id: nanoid(),
         name: this.newList,
         stored: false,
       };
-      saveNewList(list)
-        .then((response) => {
-          if (response.success) {
-            this.handleClick();
-            let updatedLists = [...this.lists];
-            updatedLists.push(list);
-            this.lists = updatedLists;
-          }
-        })
-        .catch((error) => console.error(error));
+      try {
+        const response = await saveNewList(list);
+        if (response.success) {
+          this.handleClick();
+          let updatedLists = [...this.lists];
+          updatedLists.push(list);
+          this.lists = updatedLists;
+        }
+      } catch (error) {
+        console.error(error);
+      }
     },
     async removeList(id) {
       try {
         let result = await deleteList(id);
-        console.log("result", result);
         if (result.success) {
           let updatedList = this.lists.filter((list) => list.id !== id);
-          console.log(updatedList);
+          this.lists = updatedList;
+        }
+      } catch (error) {
+        console.error(error);
+      }
+    },
+    async storeList(id) {
+      try {
+        let obj = {
+          id: id,
+          stored: true,
+        };
+        let result = await updateList(obj);
+        if (result.success) {
+          let updatedList = this.lists.filter((list) => list.id !== id);
           this.lists = updatedList;
         }
       } catch (error) {

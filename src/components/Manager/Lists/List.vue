@@ -4,7 +4,10 @@
       {{ list.name.length > 25 ? list.name.slice(0, 20) + "..." : list.name }}
     </h3>
     <div class="list-actions">
-      <IconBase iconName="Archive task collection" iconColor="#fff"
+      <IconBase
+        @click="handleStoreClick"
+        iconName="Archive task collection"
+        iconColor="#fff"
         ><IconArchive
       /></IconBase>
       <IconBase
@@ -36,7 +39,7 @@ export default {
     list: Object,
     selectedList: String,
   },
-  emits: ["remove-list", "select-list"],
+  emits: ["remove-list", "select-list", "store-list"],
   components: { IconBase, IconTrash, IconArchive },
   data() {
     return {
@@ -82,6 +85,11 @@ export default {
     handleTrashClick() {
       if (confirm(`Remove ${this.list.name}?`)) {
         this.$emit("remove-list", this.list.id);
+      }
+    },
+    handleStoreClick() {
+      if (confirm(`Store ${this.list.name}?`)) {
+        this.$emit("store-list", this.list.id);
       }
     },
   },

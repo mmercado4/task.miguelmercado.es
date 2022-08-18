@@ -19,6 +19,17 @@ const saveNewList = async (obj) => {
   return data;
 };
 
+const updateList = async (obj) => {
+  let opts = {
+    method: "PUT",
+    headers: { "content-type": "application/json" },
+    body: JSON.stringify(obj),
+  };
+  let response = await fetch(`${API_URL}/task/lists`, opts);
+  let data = await response.json();
+  return data;
+};
+
 const deleteList = async (id) => {
   let opts = {
     method: "DELETE",
@@ -30,4 +41,4 @@ const deleteList = async (id) => {
   return data;
 };
 
-export { getAllLists, saveNewList, deleteList };
+export { getAllLists, saveNewList, deleteList, updateList };
