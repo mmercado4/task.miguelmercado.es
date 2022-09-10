@@ -1,8 +1,10 @@
 <template>
-  <div class="list" v-bind:class="animation">
-    <h3 @click="handleClick">
-      {{ list.name.length > 25 ? list.name.slice(0, 20) + "..." : list.name }}
-    </h3>
+  <div class="list">
+    <div class="list-content" @click="handleClick" v-bind:class="animation">
+      <h3>
+        {{ list.name.length > 25 ? list.name.slice(0, 20) + "..." : list.name }}
+      </h3>
+    </div>
     <div class="list-actions">
       <IconBase
         @click="handleStoreClick"
@@ -43,7 +45,7 @@ export default {
   components: { IconBase, IconTrash, IconArchive },
   data() {
     return {
-      animation: "appear",
+      animation: "",
       // tasks: [
       //   {
       //     id: 3331,
@@ -62,7 +64,7 @@ export default {
   },
   updated() {
     if (this.selectedList === this.list.name) this.animation = "active";
-    else this.animation = "inactive";
+    else if (this.animation === "active") this.animation = "inactive";
   },
   computed: {
     isActive() {
@@ -101,16 +103,23 @@ export default {
 div.list {
   background-color: var(--primary-color);
   color: white;
-  cursor: pointer;
-  padding: 20px;
   margin: 10px;
   width: 80%;
   border-radius: 3px;
-  height: 100vh;
-  max-height: 50px;
+
   opacity: 1;
   position: relative;
+  z-index: 1;
   border: 2px solid var(--primary-color);
+}
+
+div.list-content {
+  width: auto;
+  min-height: 50px;
+  cursor: pointer;
+  padding: 20px;
+  height: 100vh;
+  max-height: 50px;
 }
 
 div.list-actions {
@@ -123,6 +132,7 @@ div.list-actions {
   display: flex;
   justify-content: center;
   align-items: center;
+  z-index: 10;
 }
 
 div.list-actions > svg {
@@ -145,11 +155,11 @@ div.list.active > .list-actions {
 }
 
 /*Animations*/
-div.list.active {
+div.list-content.active {
   animation: activate-list-animation 0.3s ease forwards;
 }
 
-div.list.inactive {
+div.list-content.inactive {
   animation: inactive-list-animation 0.3s ease;
 }
 
