@@ -7,13 +7,13 @@
       <IconBase
         @click="handleStoreClick"
         iconName="Archive task collection"
-        iconColor="#fff"
+        :iconColor="isActive ? 'var(--primary-color)' : 'white'"
         ><IconArchive
       /></IconBase>
       <IconBase
         @click="handleTrashClick"
         iconName="Delete task collection"
-        iconColor="#fff"
+        :iconColor="isActive ? 'var(--primary-color)' : 'white'"
         ><IconTrash
       /></IconBase>
     </div>
@@ -64,12 +64,11 @@ export default {
     if (this.selectedList === this.list.name) this.animation = "active";
     else this.animation = "inactive";
   },
-  // computed: {
-  //   isActive() {
-  //     if (this.selectedList === this.list.name) return true;
-  //     else return false;
-  //   },
-  // },
+  computed: {
+    isActive() {
+      return this.selectedList === this.list.name;
+    },
+  },
   methods: {
     doTask({ id, checked }) {
       this.tasks = this.tasks.map((task) => {
@@ -111,6 +110,7 @@ div.list {
   max-height: 50px;
   opacity: 1;
   position: relative;
+  border: 2px solid var(--primary-color);
 }
 
 div.list-actions {
@@ -137,7 +137,8 @@ div.list-actions > svg:hover {
   transition: transform 0.3s ease;
 }
 
-div.list:hover > .list-actions {
+div.list:hover > .list-actions,
+div.list.active > .list-actions {
   visibility: visible;
   opacity: 1;
   transition: opacity 0.3s ease;
@@ -157,18 +158,28 @@ div.list.inactive {
     max-height: auto;
     box-shadow: 0px 0px 0px rgba(0, 0, 0, 0.2);
   }
+  70% {
+    max-height: 50vh;
+    box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+  }
   100% {
     max-height: 50vh;
     box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+    background-color: white;
+    color: var(--primary-color);
   }
 }
 
 @keyframes inactive-list-animation {
   0% {
     max-height: 50vh;
+    background-color: white;
+    color: var(--primary-color);
   }
   100% {
     max-height: auto;
+    background-color: var(--primary-color);
+    color: white;
   }
 }
 </style>
