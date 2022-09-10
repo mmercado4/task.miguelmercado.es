@@ -2,8 +2,9 @@
   <div class="list">
     <div class="list-content" @click="handleClick" v-bind:class="animation">
       <h3>
-        {{ list.name.length > 25 ? list.name.slice(0, 20) + "..." : list.name }}
+        {{ list.name.length > 30 ? list.name.slice(0, 20) + "..." : list.name }}
       </h3>
+      <TaskContainerVue v-if="isActive" :listId="list.id" />
     </div>
     <div class="list-actions">
       <IconBase
@@ -34,6 +35,7 @@
 import IconBase from "@/components/Templates/IconBase.vue";
 import IconTrash from "@/components/Icons/IconTrash.vue";
 import IconArchive from "@/components/Icons/IconArchive.vue";
+import TaskContainerVue from "../Tasks/TaskContainer.vue";
 
 export default {
   name: "ListVue",
@@ -42,24 +44,10 @@ export default {
     selectedList: String,
   },
   emits: ["remove-list", "select-list", "store-list"],
-  components: { IconBase, IconTrash, IconArchive },
+  components: { IconBase, IconTrash, IconArchive, TaskContainerVue },
   data() {
     return {
       animation: "",
-      // tasks: [
-      //   {
-      //     id: 3331,
-      //     name: "Crear estructura",
-      //     done: false,
-      //     description: "Crear proyecto en gitlab y subir a producción",
-      //   },
-      //   {
-      //     id: 3332,
-      //     name: "Añadir campos y secciones",
-      //     done: true,
-      //     description: "Añadir los campos de datos personales",
-      //   },
-      // ],
     };
   },
   updated() {
@@ -95,8 +83,6 @@ export default {
     },
   },
 };
-
-//buscar tareas en base de datos según se inicie
 </script>
 
 <style scoped>
@@ -106,7 +92,6 @@ div.list {
   margin: 10px;
   width: 80%;
   border-radius: 3px;
-
   opacity: 1;
   position: relative;
   z-index: 1;

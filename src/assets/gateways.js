@@ -32,6 +32,9 @@ const deleteList = async (id) => {
 };
 
 //task
+const getTaskInOneList = async (list) => {
+  return fetcher(`${API_URL}/task/tasks/list/${list}`);
+};
 
 ///task/tasks/list/:list/taskcounter
 
@@ -41,4 +44,4 @@ const fetcher = async (url, opts = null) => {
   return response;
 };
 
-export { getAllLists, saveNewList, deleteList, updateList };
+export { getAllLists, saveNewList, deleteList, updateList, getTaskInOneList };
