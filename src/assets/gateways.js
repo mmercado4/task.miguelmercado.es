@@ -2,10 +2,7 @@ import { API_URL } from "./constants";
 
 //lists
 const getAllLists = async () => {
-  let request = await fetch(`${API_URL}/task/lists`);
-  let result = await request.json();
-
-  return result;
+  return fetcher(`${API_URL}/task/lists`);
 };
 
 const saveNewList = async (obj) => {
@@ -14,9 +11,7 @@ const saveNewList = async (obj) => {
     headers: { "content-type": "application/json" },
     body: JSON.stringify(obj),
   };
-  let response = await fetch(`${API_URL}/task/lists`, opts);
-  let data = await response.json();
-  return data;
+  return fetcher(`${API_URL}/task/lists`, opts);
 };
 
 const updateList = async (obj) => {
@@ -25,9 +20,7 @@ const updateList = async (obj) => {
     headers: { "content-type": "application/json" },
     body: JSON.stringify(obj),
   };
-  let response = await fetch(`${API_URL}/task/lists`, opts);
-  let data = await response.json();
-  return data;
+  return fetcher(`${API_URL}/task/lists`, opts);
 };
 
 const deleteList = async (id) => {
@@ -35,10 +28,17 @@ const deleteList = async (id) => {
     method: "DELETE",
     headers: { "content-type": "application/json" },
   };
-  let response = await fetch(`${API_URL}/task/lists/${id}`, opts);
-  let data = await response.json();
+  return fetcher(`${API_URL}/task/lists/${id}`, opts);
+};
 
-  return data;
+//task
+
+///task/tasks/list/:list/taskcounter
+
+const fetcher = async (url, opts = null) => {
+  let data = await fetch(url, opts);
+  let response = await data.json();
+  return response;
 };
 
 export { getAllLists, saveNewList, deleteList, updateList };
