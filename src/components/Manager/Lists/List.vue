@@ -1,9 +1,15 @@
 <template>
   <div class="list">
-    <div class="list-content" @click="handleClick" v-bind:class="animation">
-      <h3>
-        {{ list.name.length > 30 ? list.name.slice(0, 20) + "..." : list.name }}
-      </h3>
+    <div class="list-container" @click="handleClick" v-bind:class="animation">
+      <div class="list-content">
+        <ProgressVue :list="list.id" />
+        <h3>
+          {{
+            list.name.length > 30 ? list.name.slice(0, 20) + "..." : list.name
+          }}
+        </h3>
+      </div>
+
       <TaskContainerVue v-if="isActive" :listId="list.id" />
     </div>
     <div class="list-actions">
@@ -20,22 +26,15 @@
         ><IconTrash
       /></IconBase>
     </div>
-
-    <!-- <TaskVue
-      v-for="(task, index) in tasks"
-      :key="index"
-      :task="task"
-      @do-task="doTask"
-    /> -->
   </div>
 </template>
 
 <script>
-// import TaskVue from "./Task.vue";
 import IconBase from "@/components/Templates/IconBase.vue";
 import IconTrash from "@/components/Icons/IconTrash.vue";
 import IconArchive from "@/components/Icons/IconArchive.vue";
 import TaskContainerVue from "../Tasks/TaskContainer.vue";
+import ProgressVue from "./Progress.vue";
 
 export default {
   name: "ListVue",
@@ -44,7 +43,13 @@ export default {
     selectedList: String,
   },
   emits: ["remove-list", "select-list", "store-list"],
-  components: { IconBase, IconTrash, IconArchive, TaskContainerVue },
+  components: {
+    IconBase,
+    IconTrash,
+    IconArchive,
+    TaskContainerVue,
+    ProgressVue,
+  },
   data() {
     return {
       animation: "",
@@ -98,13 +103,19 @@ div.list {
   border: 2px solid var(--primary-color);
 }
 
-div.list-content {
+div.list-container {
   width: auto;
   min-height: 50px;
   cursor: pointer;
   padding: 20px;
   height: 100vh;
   max-height: 50px;
+}
+
+div.list-content {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
 }
 
 div.list-actions {
@@ -140,11 +151,11 @@ div.list.active > .list-actions {
 }
 
 /*Animations*/
-div.list-content.active {
+div.list-container.active {
   animation: activate-list-animation 0.3s ease forwards;
 }
 
-div.list-content.inactive {
+div.list-container.inactive {
   animation: inactive-list-animation 0.3s ease;
 }
 

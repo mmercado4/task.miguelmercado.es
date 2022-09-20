@@ -36,7 +36,9 @@ const getTaskInOneList = async (list) => {
   return fetcher(`${API_URL}/task/tasks/list/${list}`);
 };
 
-///task/tasks/list/:list/taskcounter
+const getNumberOfTask = async (list) => {
+  return fetcher(`${API_URL}/task/tasks/list/${list}/taskcounter`);
+};
 
 const fetcher = async (url, opts = null) => {
   let data = await fetch(url, opts);
@@ -44,4 +46,11 @@ const fetcher = async (url, opts = null) => {
   return response;
 };
 
-export { getAllLists, saveNewList, deleteList, updateList, getTaskInOneList };
+export {
+  getAllLists,
+  saveNewList,
+  deleteList,
+  updateList,
+  getTaskInOneList,
+  getNumberOfTask,
+};
