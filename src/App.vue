@@ -24,7 +24,8 @@ export default {
 
 /*constants*/
 :root {
-  --primary-font: "Shippori Antique", sans-serif;
+  /* --primary-font: "Shippori Antique", sans-serif; */
+  --primary-font: Consolas, sans-serif;
   --primary-color: #39a2db;
   --secondary-color: #073944;
   --background-color: #eff4f7;

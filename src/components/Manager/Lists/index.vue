@@ -1,13 +1,15 @@
 <template>
-  <div class="lists-container">
+  <div class="lists-container" ref="containerRef">
     <ListVue
       v-for="(list, index) in lists"
       :key="index"
       :list="list"
       @select-list="selectList"
+      @click="expand(index)"
       v-bind="$attrs"
       :selectedList="selectedList"
     />
+    <div class="cover" id="cover"></div>
   </div>
 </template>
 
@@ -33,6 +35,12 @@ export default {
       if (list === this.selectedList) this.selectedList = "";
       else this.selectedList = list;
     },
+    expand(index) {
+      console.log(
+        this.$refs.containerRef.children[index].getBoundingClientRect()
+        //TODO: CONTINUAR POR AQUI
+      );
+    },
   },
 };
 </script>
@@ -40,15 +48,10 @@ export default {
 <style scoped>
 div.lists-container {
   width: 90%;
-  display: flex;
-  justify-content: center;
-  align-items: flex-start;
   margin: 0 auto;
   padding: 0 15px;
-  flex-direction: column;
-  flex-wrap: nowrap;
-  flex-direction: row;
-  flex-wrap: wrap;
+  columns: 250px;
+  column-gap: 1.5em;
 }
 
 div.lists-container::-webkit-scrollbar {
